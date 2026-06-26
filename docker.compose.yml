@@ -1,0 +1,37 @@
+services:
+  lok:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    container_name: lok
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      # General configuration
+      - "traefik.enable=true"
+      - "traefik.http.routers.personal-website.rule=Host(`${HOST}}`)"
+      - "traefik.http.routers.personal-website.entrypoints=websecure"
+      - "traefik.http.routers.personal-website.tls.certresolver=myresolver"
+
+  lok-dev:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    container_name: lok-dev
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      # General configuration
+      - "traefik.enable=true"
+      - "traefik.http.routers.lok-dev.rule=Host(`${HOST_DEV}`)"
+      - "traefik.http.routers.lok-dev.entrypoints=websecure"
+      - "traefik.http.routers.lok-dev.tls.certresolver=myresolver"
+      # Make acessible to zone network only
+      - "traefik.http.middlewares.zone-ipwhitelist.ipwhitelist.sourcerange=${ZONE_IP}"
+      - "traefik.http.routers.lok-dev.middlewares=zone-ipwhitelist"
+networks:
+  proxy:
+    name: proxy
+    external: true

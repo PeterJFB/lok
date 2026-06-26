@@ -1,0 +1,36 @@
+{
+  "name": "Lok",
+  "short_name": "Lok",
+  "icons": [
+    {
+      "src": "icons/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "protocol_handlers": [
+    {
+      "protocol": "web+lokjoin",
+      "url": "/join?code=%s"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/512.png",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Home screen showing main navigation and featured content"
+    },
+    {
+      "src": "icons/512.png",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "platform": "ios",
+      "label": "Dashboard view displaying key metrics"
+    }
+  ],
+  "prefer_related_applications": false
+}

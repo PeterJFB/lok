@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="text-scale" content="scale" />
+		<!-- PWA -->
+		<link rel="manifest" href="manifest.json" />
+
+		<!-- CSS Globals -->
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			:root {
+				interpolate-size: allow-keywords;
+				height: 100%;
+				color-scheme: light dark;
+				--primary-color: light-dark(#2e2830, #efefec);
+				/* --secondary-color: light-dark(#efedea, #1a181c); */
+				--secondary-color: light-dark(#e5e1ea, #1a181c);
+				--link-color: light-dark(#8927eb, #cda0fb);
+
+				/* Border Radius */
+				--border-radius-1: 2px;
+				--border-radius-2: 3px;
+				--border-radius-3: 5px;
+				--border-radius-4: 8px;
+
+				/* Padding */
+				--padding-1: 2px;
+				--padding-2: 3px;
+				--padding-3: 5px;
+				--padding-4: 8px;
+
+				/* Flex Gap */
+				--flex-gap-1: 2px;
+				--flex-gap-2: 3px;
+				--flex-gap-3: 5px;
+				--flex-gap-4: 8px;
+
+				/* Margin */
+				--margin-1: 2px;
+				--margin-2: 3px;
+				--margin-3: 5px;
+				--margin-4: 8px;
+
+				/* Calendar */
+				--calendar-row-height: 60px;
+				--calendar-cell-padding: var(--padding-3);
+			}
+
+			body {
+				height: 100%;
+			}
+		</style>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+	<script>
+		window.addEventListener('beforeinstallprompt', (event) => {
+			event.preventDefault();
+			window.installPrompt = event;
+		});
+	</script>
+</html>
