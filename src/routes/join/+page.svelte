@@ -1,13 +1,22 @@
 <script lang="ts">
-	import { page } from '$app/state';
+	import { sleep } from '$lib/time';
 	import { onMount } from 'svelte';
 
 	let installHidden = $state(true);
-	onMount(() => {
+	onMount(async () => {
+		// Wait a stupid tiny amount since dev and production register events at
+		// different timings. If this is changed, verify dev AND prod.
+		await sleep(100);
+
 		if (window.installPrompt) {
+			console.debug('PWA installPrompt received');
 			installHidden = false;
+		} else {
+			console.debug('PWA installPrompt not received');
 		}
+
 		window.addEventListener('appinstalled', () => {
+			console.debug('Received `appinstalled` event');
 			installHidden = true;
 		});
 	});
