@@ -10,7 +10,7 @@ services:
     labels:
       # General configuration
       - "traefik.enable=true"
-      - "traefik.http.routers.personal-website.rule=Host(`${HOST}}`)"
+      - "traefik.http.routers.personal-website.rule=Host(`${HOST}`)"
       - "traefik.http.routers.personal-website.entrypoints=websecure"
       - "traefik.http.routers.personal-website.tls.certresolver=myresolver"
 
