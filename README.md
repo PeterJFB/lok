@@ -57,3 +57,9 @@ You can preview the production build with `npm run preview`.
 │ - Run pnpm run db:push to update your database │
 │ - Check ORIGIN & BETTER_AUTH_SECRET in .env and adjust it to your needs │
 │ - Visit /demo/better-auth route to view the demo
+
+## Passkeys
+
+- https://passkeys.dev/docs/tools-libraries/libraries/
+- https://simplewebauthn.dev/docs/packages/browser
+- https://github.com/w3c/webauthn/blob/main/explainers/conditional-ui.md

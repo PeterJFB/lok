@@ -38,3 +38,12 @@
 - If in PWA, tries to get user info (determines if signed in)
 - User enters information
 - Registration successful
+
+### Ignore entire Passkey ceremony?
+
+- Administrator creates invite link
+  - 10 minute expiration
+- User clicks url
+  - Locally create an device identity
+  - Gets the option to add name and icon?
+  - Registration successfull?

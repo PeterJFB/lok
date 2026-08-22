@@ -1,27 +1,31 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
-	import { isPWA } from '$lib/pwa';
-	import { onMount } from 'svelte';
+  import favicon from '$lib/assets/favicon.svg';
+  import { isPWA } from '$lib/pwa';
+  import { onMount } from 'svelte';
 
-	const logMountInfo = () => {
-		console.debug(`
+  const logMountInfo = () => {
+    console.debug(`
 ------------------------------
 Mount Info:
 - PWA: ${isPWA()}
 ------------------------------`);
-	};
+  };
 
-	let { children } = $props();
+  let { children, data } = $props();
 
-	onMount(() => {
-		logMountInfo();
-	});
+  onMount(() => {
+    logMountInfo();
+  });
+
+  onMount(() => {});
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+  <link rel="icon" href={favicon} />
 </svelte:head>
 
 <svelte:window />
 
-{@render children()}
+{#if data.user || data.anonymous}
+  {@render children()}
+{/if}

@@ -21,6 +21,36 @@
 				--secondary-color: light-dark(#e5e1ea, #1a181c);
 				--link-color: light-dark(#8927eb, #cda0fb);
 
+				--primary-color: hsl(0, 60%, 58%);
+
+				/* Theme */
+				--bg-dark: light-dark(
+					oklch(from var(--primary-color) 90% 0 h),
+					oklch(from var(--primary-color) 10% 0 h)
+				);
+				--bg: light-dark(
+					oklch(from var(--primary-color) 95% 0 h),
+					oklch(from var(--primary-color) 15% 0 h)
+				);
+				--bg-light: light-dark(
+					oklch(from var(--primary-color) 100% 0 h),
+					oklch(from var(--primary-color) 20% 0 h)
+				);
+
+				--text: light-dark(oklch(5% 0 0), oklch(95% 0 0));
+				--text-muted: light-dark(oklch(30% 0 0), oklch(70% 0 0));
+
+				/* --bg-dark: light-dark(oklab(90% 0 0), oklab(10% 0 0));
+				--bg: light-dark(oklab(95% 0 0), oklab(15% 0 0));
+				--bg-light: light-dark(oklab(100% 0 0), oklab(20% 0 0));
+
+				--text: light-dark(oklab(5% 0 0), oklab(95% 0 0));
+				--text-muted: light-dark(oklab(30% 0 0), oklab(70% 0 0)); */
+
+				/* Font */
+				--font-size: 18px;
+				--font-family: sans-serif;
+
 				/* Border Radius */
 				--border-radius-1: 2px;
 				--border-radius-2: 3px;
@@ -32,6 +62,9 @@
 				--padding-2: 3px;
 				--padding-3: 5px;
 				--padding-4: 8px;
+				--padding-5: 13px;
+				--padding-6: 21px;
+				--padding-7: 34px;
 
 				/* Flex Gap */
 				--flex-gap-1: 2px;
@@ -52,6 +85,17 @@
 
 			body {
 				height: 100%;
+
+				background-color: var(--bg-dark);
+
+				font-size: var(--font-size);
+				font-family: var(--font-family);
+				color: var(--text);
+			}
+
+			button {
+				font-size: var(--font-family);
+				background-color: var(--bg-light);
 			}
 		</style>
 		%sveltekit.head%

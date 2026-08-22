@@ -1,42 +1,49 @@
-import prettier from 'eslint-config-prettier';
-import { includeIgnoreFile } from '@eslint/compat';
+import { includeIgnoreFile } from '@eslint/config-helpers';
 import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript-eslint';
-import svelteConfig from './svelte.config.js';
-
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default ts.config(
-	includeIgnoreFile(gitignorePath),
-	js.configs.recommended,
-	...ts.configs.recommended,
-	...svelte.configs.recommended,
-	prettier,
-	...svelte.configs.prettier,
-	{
-		languageOptions: {
-			globals: { ...globals.browser, ...globals.node }
-		},
-		rules: {
-			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
-			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
-			'no-undef': 'off',
-			curly: 'all'
-		}
-	},
-	{
-		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				extraFileExtensions: ['.svelte'],
-				parser: ts.parser,
-				svelteConfig
-			}
-		},
-		rules: { 'svelte/block-lang': ['error', { script: 'ts' }] }
-	}
+  includeIgnoreFile(gitignorePath),
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  ...svelte.configs.recommended,
+  prettier,
+  ...svelte.configs.prettier,
+  {
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node }
+    },
+    rules: {
+      // typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
+      // see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+      'no-undef': 'off',
+      curly: 'error',
+      'no-unused-vars': 'off',
+
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          // Set to true inside newer setups to enable experimental deletion
+          // Note: check your local package version documentation for compatibility
+        }
+      ]
+    }
+  },
+  {
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        extraFileExtensions: ['.svelte'],
+        parser: ts.parser
+        // svelteConfig
+      }
+    },
+    rules: { 'svelte/block-lang': ['error', { script: 'ts' }] }
+  }
 );
