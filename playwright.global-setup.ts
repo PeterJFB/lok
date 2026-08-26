@@ -40,6 +40,12 @@ async function globalSetup() {
     expiresAtMilliseconds: Temporal.Now.instant().add({ hours: 24 }).epochMilliseconds,
     joinCode: 'join_lighthouse'
   });
+  await db.insert(schema.joinCodes).values({
+    createdById: 'smith',
+    groupId: 'lighthouse',
+    expiresAtMilliseconds: Temporal.Now.instant().subtract({ hours: 24 }).epochMilliseconds,
+    joinCode: 'expired_lighthouse'
+  });
 
   console.log('✅ Test database is ready.');
 }

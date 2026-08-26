@@ -1,7 +1,12 @@
-import { LOK_AUTH_COOKIE_NAME } from '$lib/client/auth';
+import { db } from '$lib/server/db';
 import { cookieTokens } from '$lib/server/repositories/cookie-tokens';
+import { LOK_AUTH_COOKIE_NAME } from '$lib/std/auth';
 import { Temporal } from '@js-temporal/polyfill';
 import { type Handle } from '@sveltejs/kit';
+import { migrate } from 'drizzle-orm/libsql/migrator';
+
+// Export a function to run migrations
+await migrate(db, { migrationsFolder: './drizzle' });
 
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
   const authCookie = event.cookies.get(LOK_AUTH_COOKIE_NAME);
@@ -9,7 +14,7 @@ const handleBetterAuth: Handle = async ({ event, resolve }) => {
     return resolve(event);
   }
 
-  console.debug('Received cookie at', event.url);
+  console.debug('Received cookie at', event.url.href);
 
   const cookieResult = await cookieTokens.getWithUser(authCookie);
   if (!cookieResult.isOk) {

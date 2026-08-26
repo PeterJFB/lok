@@ -1,9 +1,19 @@
+import { dev } from '$app/env';
+import {
+  LOK_AUTH_COOKIE_NAME,
+  LOK_DEVICE_IDENTIFIER_KEY,
+  LOK_DEVICE_IDENTIFIER_LENGTH
+} from '$lib/std/auth';
+import type { Temporal } from '@js-temporal/polyfill';
+import type { Cookies } from '@sveltejs/kit';
 import { generateAlphaNumString } from './crypto';
 
-export const LOK_AUTH_COOKIE_NAME = 'lok_auth_cookie';
-
-export const LOK_DEVICE_IDENTIFIER_KEY = 'LOK_DEVICE_IDENTIFIER';
-export const LOK_DEVICE_IDENTIFIER_LENGTH = 20;
+export const getDeviceIdentifier = () => {
+  const deviceIdentifier = window.localStorage.getItem(LOK_DEVICE_IDENTIFIER_KEY);
+  if (deviceIdentifier !== null) {
+    return deviceIdentifier;
+  }
+};
 
 export const getOrCreateDeviceIdentifier = () => {
   const deviceIdentifier = window.localStorage.getItem(LOK_DEVICE_IDENTIFIER_KEY);
@@ -16,9 +26,13 @@ export const getOrCreateDeviceIdentifier = () => {
   return newDeviceIdentifier;
 };
 
-export const getDeviceIdentifier = () => {
-  const deviceIdentifier = window.localStorage.getItem(LOK_DEVICE_IDENTIFIER_KEY);
-  if (deviceIdentifier !== null) {
-    return deviceIdentifier;
-  }
+/** Set correct auth cookie options based on environment */
+export const setAuthCookie = (cookies: Cookies, token: string, expiresAt: Temporal.Instant) => {
+  cookies.set(LOK_AUTH_COOKIE_NAME, token, {
+    httpOnly: true,
+    secure: !dev,
+    sameSite: true,
+    expires: new Date(expiresAt.epochMilliseconds),
+    path: '/'
+  });
 };

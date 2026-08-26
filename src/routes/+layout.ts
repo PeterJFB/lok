@@ -1,6 +1,6 @@
 import { browser } from '$app/env';
 import { callApi } from '$lib/client/api';
-import { getDeviceIdentifier } from '$lib/client/auth';
+import { getOrCreateDeviceIdentifier } from '$lib/client/auth';
 import type { LayoutLoad } from './$types';
 import type { GetTokenReqBody, GetTokenResBody } from './auth/get-token-and-user/+server';
 
@@ -9,7 +9,7 @@ export const load: LayoutLoad = async ({ data, fetch }) => {
     if (data.user) {
       return { user: data.user };
     }
-    const deviceId = getDeviceIdentifier();
+    const deviceId = getOrCreateDeviceIdentifier();
     if (!deviceId) {
       return { anonymous: true };
     }

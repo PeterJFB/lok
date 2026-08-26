@@ -1,9 +1,8 @@
-import { error, json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import { setAuthCookie } from '$lib/client/auth';
 import { cookieTokens } from '$lib/server/repositories/cookie-tokens';
 import { unreachable } from '$lib/std/unreachable';
-import { dev } from '$app/env';
-import { LOK_AUTH_COOKIE_NAME } from '$lib/client/auth';
+import { error, json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
   const body = (await request.json()) as unknown;
@@ -33,13 +32,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     return error(500);
   }
 
-  cookies.set(LOK_AUTH_COOKIE_NAME, tokenResult.obj.token, {
-    httpOnly: true,
-    secure: !dev,
-    sameSite: true,
-    expires: new Date(tokenResult.obj.expiresAt.epochMilliseconds),
-    path: '/'
-  });
+  setAuthCookie(cookies, tokenResult.obj.token, tokenResult.obj.expiresAt);
   return json({ user: userResult.obj.user }, { status: 201 });
 };
 

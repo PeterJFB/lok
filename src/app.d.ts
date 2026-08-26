@@ -5,10 +5,16 @@ import type { DbCookieTokenWithUser } from '$lib/server/repositories/cookie-toke
 declare global {
   namespace App {
     interface Locals {
+      /**
+       * Injected at hooks.server.ts if a valid cookie is provided with the request.
+       */
       user?: {
         id: string;
         name: string;
       };
+      /**
+       * Injected at hooks.server.ts if a valid cookie is provided with the request.
+       */
       session?: DbCookieTokenWithUser;
     }
 

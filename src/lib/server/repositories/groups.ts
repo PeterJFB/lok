@@ -1,6 +1,6 @@
+import { err, ok, type Result } from '$lib/std/result';
 import { Temporal } from '@js-temporal/polyfill';
 import { db } from '../db';
-import { err, ok, type Result } from '$lib/std/result';
 import * as schema from '../db/schema';
 import type { DbUser } from './users';
 
@@ -49,6 +49,14 @@ export type DbAddUserError =
     }
   | {
       type: 'join-code-expired';
+    }
+  | {
+      type: 'group-not-found';
+    };
+
+export type DbGroupMembersError =
+  | {
+      type: 'database-error';
     }
   | {
       type: 'group-not-found';

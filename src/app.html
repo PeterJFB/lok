@@ -1,112 +1,223 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="text-scale" content="scale" />
-		<!-- PWA -->
-		<link rel="manifest" href="manifest.json" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="text-scale" content="scale" />
+    <title>Lok</title>
+    <meta name="description" content="When are you available next week?" />
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- Fonts -->
+    <link
+      rel="preload"
+      href="%sveltekit.assets%/fonts/Young_Serif/YoungSerif-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin="anonymous"
+    />
 
-		<!-- CSS Globals -->
-		<style>
-			* {
-				box-sizing: border-box;
-			}
-			:root {
-				interpolate-size: allow-keywords;
-				height: 100%;
-				color-scheme: light dark;
-				--primary-color: light-dark(#2e2830, #efefec);
-				/* --secondary-color: light-dark(#efedea, #1a181c); */
-				--secondary-color: light-dark(#e5e1ea, #1a181c);
-				--link-color: light-dark(#8927eb, #cda0fb);
+    <!-- CSS Globals -->
+    <style>
+      @font-face {
+        font-family: 'YoungSerif';
+        src: url('/fonts/Young_Serif/YoungSerif-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
 
-				--primary-color: hsl(0, 60%, 58%);
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        /* #cfd186 */
+        --color-golden-sand-50: oklch(0.442 0.051 109.612);
+        --color-golden-sand-100: oklch(0.542 0.062 109.612);
+        --color-golden-sand-200: oklch(0.642 0.074 109.612);
+        --color-golden-sand-300: oklch(0.742 0.085 109.612);
+        --color-golden-sand-500: oklch(0.842 0.097 109.612);
+        --color-golden-sand-700: oklch(0.869 0.1 109.612);
+        --color-golden-sand-800: oklch(0.896 0.103 109.612);
+        --color-golden-sand-900: oklch(0.923 0.106 109.612);
+        --color-golden-sand-950: oklch(0.95 0.109 109.612);
 
-				/* Theme */
-				--bg-dark: light-dark(
-					oklch(from var(--primary-color) 90% 0 h),
-					oklch(from var(--primary-color) 10% 0 h)
-				);
-				--bg: light-dark(
-					oklch(from var(--primary-color) 95% 0 h),
-					oklch(from var(--primary-color) 15% 0 h)
-				);
-				--bg-light: light-dark(
-					oklch(from var(--primary-color) 100% 0 h),
-					oklch(from var(--primary-color) 20% 0 h)
-				);
+        /* #5b8c5a */
+        --color-sea-green-50: oklch(0.192 0.03 143.861);
+        --color-sea-green-100: oklch(0.292 0.045 143.861);
+        --color-sea-green-200: oklch(0.392 0.061 143.861);
+        --color-sea-green-300: oklch(0.492 0.076 143.861);
+        --color-sea-green-500: oklch(0.592 0.092 143.861);
+        --color-sea-green-700: oklch(0.681 0.106 143.861);
+        --color-sea-green-800: oklch(0.771 0.119 143.861);
+        --color-sea-green-900: oklch(0.86 0.133 143.861);
+        --color-sea-green-950: oklch(0.95 0.043 143.861);
 
-				--text: light-dark(oklch(5% 0 0), oklch(95% 0 0));
-				--text-muted: light-dark(oklch(30% 0 0), oklch(70% 0 0));
+        /* e3655b */
+        --color-vibrant-coral-50: oklch(0.26 0.074 26.846);
+        --color-vibrant-coral-100: oklch(0.36 0.103 26.846);
+        --color-vibrant-coral-200: oklch(0.46 0.132 26.846);
+        --color-vibrant-coral-300: oklch(0.56 0.16 26.846);
+        --color-vibrant-coral-500: oklch(0.66 0.159 26.846);
+        --color-vibrant-coral-700: oklch(0.732 0.115 26.846);
+        --color-vibrant-coral-800: oklch(0.805 0.078 26.846);
+        --color-vibrant-coral-900: oklch(0.877 0.046 26.846);
+        --color-vibrant-coral-950: oklch(0.95 0.017 26.846);
 
-				/* --bg-dark: light-dark(oklab(90% 0 0), oklab(10% 0 0));
+        /* 596157 */
+        --color-ebony-50: oklch(0.082 0.003 139.435);
+        --color-ebony-100: oklch(0.182 0.007 139.435);
+        --color-ebony-200: oklch(0.282 0.011 139.435);
+        --color-ebony-300: oklch(0.382 0.015 139.435);
+        --color-ebony-500: oklch(0.482 0.019 139.435);
+        --color-ebony-700: oklch(0.582 0.022 139.435);
+        --color-ebony-800: oklch(0.682 0.026 139.435);
+        --color-ebony-900: oklch(0.782 0.03 139.435);
+        --color-ebony-950: oklch(0.882 0.032 139.435);
+
+        /* 52414c */
+        --color-mauve-shadow-50: oklch(0.05 0.004 339.581);
+        --color-mauve-shadow-100: oklch(0.137 0.01 339.581);
+        --color-mauve-shadow-200: oklch(0.224 0.016 339.581);
+        --color-mauve-shadow-300: oklch(0.31 0.023 339.581);
+        --color-mauve-shadow-500: oklch(0.397 0.029 339.581);
+        --color-mauve-shadow-700: oklch(0.497 0.036 339.581);
+        --color-mauve-shadow-800: oklch(0.597 0.044 339.581);
+        --color-mauve-shadow-900: oklch(0.697 0.045 339.581);
+        --color-mauve-shadow-950: oklch(0.797 0.027 339.581);
+      }
+      :root {
+        interpolate-size: allow-keywords;
+        height: 100%;
+
+        color-scheme: light dark;
+        --primary-color: light-dark(var(--color-sea-green-50), var(--color-ebony-950));
+        /* --secondary-color: light-dark(#efedea, #1a181c); */
+        --secondary-color: light-dark(var(--color-ebony-950), var(--color-sea-green-50));
+        --link-color: light-dark(#8927eb, #cda0fb);
+
+        /* Theme */
+        --bg-dark: light-dark(var(--color-sea-green-800), var(--color-sea-green-50));
+        --bg: light-dark(var(--color-sea-green-900), var(--color-sea-green-100));
+        --bg-light: light-dark(var(--color-sea-green-950), var(--color-sea-green-200));
+
+        --text: light-dark(var(--color-ebony-50), var(--color-ebony-950));
+        --text-muted: light-dark(var(--color-ebony-150), var(--color-ebony-800));
+
+        --focus: light-dark(var(--color-golden-sand-100), var(--color-golden-sand-300));
+
+        /* --bg-dark: light-dark(oklab(90% 0 0), oklab(10% 0 0));
 				--bg: light-dark(oklab(95% 0 0), oklab(15% 0 0));
 				--bg-light: light-dark(oklab(100% 0 0), oklab(20% 0 0));
 
 				--text: light-dark(oklab(5% 0 0), oklab(95% 0 0));
 				--text-muted: light-dark(oklab(30% 0 0), oklab(70% 0 0)); */
 
-				/* Font */
-				--font-size: 18px;
-				--font-family: sans-serif;
+        /* Font */
+        --font-size: 18px;
+        --font-family: sans-serif;
 
-				/* Border Radius */
-				--border-radius-1: 2px;
-				--border-radius-2: 3px;
-				--border-radius-3: 5px;
-				--border-radius-4: 8px;
+        /* Border Radius */
+        --border-radius-1: 2px;
+        --border-radius-2: 3px;
+        --border-radius-3: 5px;
+        --border-radius-4: 8px;
 
-				/* Padding */
-				--padding-1: 2px;
-				--padding-2: 3px;
-				--padding-3: 5px;
-				--padding-4: 8px;
-				--padding-5: 13px;
-				--padding-6: 21px;
-				--padding-7: 34px;
+        /* Padding */
+        --padding-1: 2px;
+        --padding-2: 3px;
+        --padding-3: 5px;
+        --padding-4: 8px;
+        --padding-5: 13px;
+        --padding-6: 21px;
+        --padding-7: 34px;
 
-				/* Flex Gap */
-				--flex-gap-1: 2px;
-				--flex-gap-2: 3px;
-				--flex-gap-3: 5px;
-				--flex-gap-4: 8px;
+        /* Flex Gap */
+        --flex-gap-1: 2px;
+        --flex-gap-2: 3px;
+        --flex-gap-3: 5px;
+        --flex-gap-4: 8px;
+        --flex-gap-5: 13px;
+        --flex-gap-6: 21px;
+        --flex-gap-7: 34px;
 
-				/* Margin */
-				--margin-1: 2px;
-				--margin-2: 3px;
-				--margin-3: 5px;
-				--margin-4: 8px;
+        /* Margin */
+        --margin-1: 2px;
+        --margin-2: 3px;
+        --margin-3: 5px;
+        --margin-4: 8px;
 
-				/* Calendar */
-				--calendar-row-height: 60px;
-				--calendar-cell-padding: var(--padding-3);
-			}
+        /* Calendar */
+        --calendar-row-height: 60px;
+        --calendar-cell-padding: var(--padding-3);
 
-			body {
-				height: 100%;
+        /* transition */
+        --transition-hover: 0.4s;
+      }
 
-				background-color: var(--bg-dark);
+      body {
+        height: 100%;
 
-				font-size: var(--font-size);
-				font-family: var(--font-family);
-				color: var(--text);
-			}
+        background-color: var(--bg-dark);
 
-			button {
-				font-size: var(--font-family);
-				background-color: var(--bg-light);
-			}
-		</style>
-		%sveltekit.head%
-	</head>
-	<script>
-		window.addEventListener('beforeinstallprompt', (event) => {
-			event.preventDefault();
-			window.installPrompt = event;
-		});
-	</script>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+        font-size: var(--font-size);
+        font-family: var(--font-family);
+        color: var(--text);
+        margin: 0;
+      }
+
+      button {
+        font-size: var(--font-family);
+        background-color: var(--bg);
+        border-radius: var(--border-radius-2);
+        outline: none;
+        border: none;
+        padding: var(--padding-2) var(--padding-5);
+
+        &:focus {
+          outline: 2px solid var(--focus);
+        }
+        &:hover {
+          background-color: var(--bg-light);
+          cursor: pointer;
+        }
+        &:active {
+          background-color: var(--bg-dark);
+        }
+      }
+
+      input.inset {
+        background-color: var(--bg-dark);
+        padding: var(--padding-2) var(--padding-5);
+        font-family: inherit;
+        font-size: var(--font-size);
+        border: none;
+        border-bottom: 1px solid var(--primary-color);
+        border-radius: var(--border-radius-1);
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible {
+        outline: 3px solid var(--focus) !important;
+      }
+      button,
+      a,
+      input {
+        transition:
+          outline 0.1s,
+          background-color 0.4s;
+      }
+    </style>
+    %sveltekit.head%
+  </head>
+  <script>
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      window.installPrompt = event;
+    });
+  </script>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
 </html>
