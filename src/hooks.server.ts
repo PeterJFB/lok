@@ -6,7 +6,7 @@ import { type Handle } from '@sveltejs/kit';
 import { migrate } from 'drizzle-orm/libsql/migrator';
 
 // Export a function to run migrations
-await migrate(db, { migrationsFolder: './drizzle' });
+await migrate(db, { migrationsFolder: `${process.cwd()}/drizzle` });
 
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
   const authCookie = event.cookies.get(LOK_AUTH_COOKIE_NAME);

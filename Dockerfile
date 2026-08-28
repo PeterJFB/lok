@@ -32,6 +32,8 @@ RUN pnpm run build
 ###########################################################
 
 FROM base
+WORKDIR /app
+
 COPY --from=prod /app/node_modules /app/node_modules
 COPY --from=prod /app/build /app/build
 COPY --from=prod /app/drizzle /app/drizzle
