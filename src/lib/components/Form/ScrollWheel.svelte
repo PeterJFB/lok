@@ -152,6 +152,7 @@
     display: flex;
     align-items: center;
     border-radius: var(--border-radius-3);
+    overscroll-behavior: none;
     cursor: grab;
 
     &:active {
