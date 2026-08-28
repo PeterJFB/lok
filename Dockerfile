@@ -26,6 +26,7 @@ RUN pnpm fetch --prod
 
 COPY . .
 RUN pnpm run build
+RUN pnpm run build:scripts
 
 ###########################################################
 # 4. Build final image
