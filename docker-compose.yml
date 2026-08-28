@@ -21,9 +21,9 @@ services:
     container_name: lok-dev
     restart: unless-stopped
     environment:
-      - DATABASE_URL=file:/app/staging.db
+      - DATABASE_URL=file:/app/database/staging.db
     volumes:
-      - ./staging.db:/app/staging.db
+      - ./database:/app/database
     networks:
       - proxy
     labels:
