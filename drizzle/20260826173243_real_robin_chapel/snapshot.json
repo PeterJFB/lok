@@ -1,13 +1,17 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "id": "a96a16a8-763f-4086-a6de-580776513331",
+  "id": "f958eff0-bb50-43f9-840f-e9e45aa37720",
   "prevIds": [
-    "953be744-2ffe-4d21-8be4-7d12fd6ec5ff"
+    "00000000-0000-0000-0000-000000000000"
   ],
   "ddl": [
     {
       "name": "cookie_tokens",
+      "entityType": "tables"
+    },
+    {
+      "name": "device_identifiers",
       "entityType": "tables"
     },
     {
@@ -36,7 +40,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "cookieToken",
+      "name": "cookie_token",
       "entityType": "columns",
       "table": "cookie_tokens"
     },
@@ -56,9 +60,49 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "expiry_ms",
+      "name": "expires_at_ms",
       "entityType": "columns",
       "table": "cookie_tokens"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "device_identifiers"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "value",
+      "entityType": "columns",
+      "table": "device_identifiers"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "type",
+      "entityType": "columns",
+      "table": "device_identifiers"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "table": "device_identifiers"
     },
     {
       "type": "text",
@@ -96,7 +140,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "user_id",
+      "name": "created_by_id",
       "entityType": "columns",
       "table": "join_codes"
     },
@@ -116,7 +160,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "expiry_ms",
+      "name": "expires_at_ms",
       "entityType": "columns",
       "table": "join_codes"
     },
@@ -191,7 +235,7 @@
       "table": "users"
     },
     {
-      "type": "integer",
+      "type": "text",
       "notNull": true,
       "autoincrement": false,
       "default": null,
@@ -201,12 +245,32 @@
       "table": "users_to_groups"
     },
     {
-      "type": "integer",
+      "type": "text",
       "notNull": true,
       "autoincrement": false,
       "default": null,
       "generated": null,
       "name": "group_id",
+      "entityType": "columns",
+      "table": "users_to_groups"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "role",
+      "entityType": "columns",
+      "table": "users_to_groups"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "joined_ms",
       "entityType": "columns",
       "table": "users_to_groups"
     },
@@ -252,11 +316,20 @@
     },
     {
       "columns": [
-        "cookieToken"
+        "cookie_token"
       ],
       "nameExplicit": false,
       "name": "cookie_tokens_pk",
       "table": "cookie_tokens",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "device_identifiers_pk",
+      "table": "device_identifiers",
       "entityType": "pks"
     },
     {
