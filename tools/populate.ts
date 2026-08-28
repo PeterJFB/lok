@@ -2,7 +2,7 @@ import { Temporal } from '@js-temporal/polyfill';
 import { drizzle } from 'drizzle-orm/libsql';
 import * as schemaAndRelations from '../src/lib/server/db/schema';
 
-const DATABASE_URL = 'file:local.db';
+const DATABASE_URL = process.env['DATABASE_URL'] ?? 'file:local.db';
 
 console.log(`⏳ Preparing ${DATABASE_URL} database...`);
 
